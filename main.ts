@@ -8,8 +8,9 @@ input.onButtonPressed(Button.A, function () {
 function Init_Radio (_name: string, _value: number, _serialnumber: number) {
     if (_name == "PAIR") {
         radio.sendValue("HS", _serialnumber)
-        id = _value + 1
-        basic.showString("" + (id))
+        temp_id = _value + 1
+    } else if (_name == "HS" && _value == control.deviceSerialNumber()) {
+        id = temp_id
         if (Endpoint) {
             Switch_State("ENDPOINT")
         } else {
@@ -35,7 +36,7 @@ input.onButtonPressed(Button.B, function () {
 })
 function Pair_Radio (_name: string, _value: number, _serialnumber: number) {
     if (_name == "HS" && _value == control.deviceSerialNumber()) {
-        basic.showString("AYYYYYY!!!")
+        radio.sendValue("HS", _serialnumber)
         if (Endpoint) {
             Switch_State("ENDPOINT")
         } else {
@@ -55,6 +56,7 @@ radio.onReceivedValue(function (name, value) {
 function Init () {
 	
 }
+let temp_id = 0
 let Endpoint = false
 let STATE = ""
 let id = 0
