@@ -12,7 +12,6 @@ function send_message (message_data: any[]) {
 }
 input.onButtonPressed(Button.A, function () {
     if (STATE == "INIT") {
-        music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
         Endpoint = true
         basic.showString("ENDPOINT")
     }
@@ -77,9 +76,6 @@ radio.onReceivedValue(function (name, value) {
     	
     }
 })
-function Init () {
-	
-}
 let message_data: string[] = []
 let temp_id = 0
 let Endpoint = false
@@ -90,11 +86,7 @@ radio.setTransmitSerialNumber(true)
 id = -1
 Switch_State("INIT")
 basic.forever(function () {
-    if (STATE == "INIT") {
-        Init()
-    } else if (STATE == "PAIR") {
+    if (STATE == "PAIR") {
         Pair()
-    } else {
-    	
     }
 })
