@@ -17,6 +17,7 @@ function Init_Radio (_name: string, _value: number, _serialnumber: number) {
             Switch_State("PAIR")
         }
     }
+    basic.showNumber(id)
 }
 function Pair () {
     basic.pause(2000)
@@ -28,10 +29,12 @@ function Switch_State (_state: string) {
 }
 input.onButtonPressed(Button.B, function () {
     if (STATE == "INIT") {
-        if (id == -1) {
-            id = 0
+        if (Endpoint) {
+            if (id == -1) {
+                id = 0
+            }
+            Switch_State("PAIR")
         }
-        Switch_State("PAIR")
     }
 })
 function Pair_Radio (_name: string, _value: number, _serialnumber: number) {
@@ -43,6 +46,7 @@ function Pair_Radio (_name: string, _value: number, _serialnumber: number) {
             Switch_State("RELAY")
         }
     }
+    basic.showNumber(id)
 }
 radio.onReceivedValue(function (name, value) {
     if (STATE == "INIT") {
