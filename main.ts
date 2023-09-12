@@ -47,13 +47,11 @@ radio.onReceivedString(function (receivedString) {
     }
 })
 input.onButtonPressed(Button.B, function () {
-    if (STATE == "INIT") {
-        if (Endpoint) {
-            if (id == -1) {
-                id = 0
-            }
-            Switch_State("PAIR")
+    if (Endpoint && STATE == "INIT") {
+        if (id == -1) {
+            id = 0
         }
+        Switch_State("PAIR")
     }
 })
 function Pair_Radio (_name: string, _value: number, _serialnumber: number) {
@@ -79,7 +77,7 @@ let temp_id = 0
 let Endpoint = false
 let STATE = ""
 let id = 0
-radio.setGroup(154)
+radio.setGroup(169)
 radio.setTransmitSerialNumber(true)
 id = -1
 Switch_State("INIT")
