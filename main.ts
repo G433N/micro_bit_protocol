@@ -31,8 +31,8 @@ function Init_Radio (_name: string, _value: number, _serialnumber: number) {
     basic.showNumber(id)
 }
 function Pair () {
-    basic.pause(2000)
     radio.sendValue("PAIR", id)
+    basic.pause(2000)
 }
 function Switch_State (_state: string) {
     STATE = _state
