@@ -1,3 +1,15 @@
+// Input shape: reciver_id:sender_id:message
+// or constat length id
+function read_message (_message: string) {
+    return ["reciver_id", "sender_id", "message"]
+}
+// Array length = 3
+// "reciver_id",
+// "sender_id",
+// "message"
+function send_message (message_data: any[]) {
+    radio.sendString("")
+}
 input.onButtonPressed(Button.A, function () {
     if (STATE == "INIT") {
         music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
@@ -27,6 +39,14 @@ function Switch_State (_state: string) {
     STATE = _state
     basic.showString(_state)
 }
+radio.onReceivedString(function (receivedString) {
+    message_data = read_message(receivedString)
+    basic.showString("Do shit here")
+    if (STATE == "RELAY") {
+        let list: number[] = []
+        send_message(list)
+    }
+})
 input.onButtonPressed(Button.B, function () {
     if (STATE == "INIT") {
         if (Endpoint) {
@@ -60,6 +80,7 @@ radio.onReceivedValue(function (name, value) {
 function Init () {
 	
 }
+let message_data: string[] = []
 let temp_id = 0
 let Endpoint = false
 let STATE = ""
