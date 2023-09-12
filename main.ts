@@ -39,10 +39,10 @@ function Switch_State (_state: string) {
     basic.showString(_state)
 }
 radio.onReceivedString(function (receivedString) {
-    message_data = read_message(receivedString)
-    basic.showString("Do shit here")
     if (STATE == "RELAY") {
         let list: number[] = []
+        message_data = read_message(receivedString)
+        basic.showString("Do shit here")
         send_message(list)
     }
 })
@@ -72,8 +72,6 @@ radio.onReceivedValue(function (name, value) {
         Init_Radio(name, value, radio.receivedPacket(RadioPacketProperty.SerialNumber))
     } else if (STATE == "PAIR") {
         Pair_Radio(name, value, radio.receivedPacket(RadioPacketProperty.SerialNumber))
-    } else {
-    	
     }
 })
 let message_data: string[] = []
