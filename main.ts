@@ -1,7 +1,16 @@
 // Input shape: reciver_id:sender_id:message
 // or constat length id
 function read_message (_message: string) {
-    return ["reciver_id", "sender_id", "message"]
+    if (!(7 == _message.length)) {
+        return []
+    }
+    reciver_id = parseFloat(_message.substr(0, 2))
+    sender_id = parseFloat(_message.substr(2, 2))
+    message_int = parseFloat(_message.substr(4, 3))
+    if (true) {
+        return [reciver_id, sender_id, message_int]
+    }
+    return []
 }
 // Array length = 3
 // "reciver_id",
@@ -41,7 +50,7 @@ function Switch_State (_state: string) {
 radio.onReceivedString(function (receivedString) {
     if (STATE == "RELAY") {
         let list: number[] = []
-        message_data = read_message(receivedString)
+        message_data = receivedString
         basic.showString("Do shit here")
         send_message(list)
     }
@@ -72,17 +81,17 @@ radio.onReceivedValue(function (name, value) {
         Pair_Radio(name, value, radio.receivedPacket(RadioPacketProperty.SerialNumber))
     }
 })
-let message_data: string[] = []
+let message_data = ""
+let id = 0
 let temp_id = 0
 let Endpoint = false
 let STATE = ""
-let id = 0
-radio.setGroup(169)
-radio.setTransmitSerialNumber(true)
-id = -1
-Switch_State("INIT")
+let message_int = 0
+let sender_id = 0
+let reciver_id = 0
+for (let value of read_message("1122333")) {
+    basic.showString("" + (value))
+}
 basic.forever(function () {
-    if (STATE == "PAIR") {
-        Pair()
-    }
+	
 })
