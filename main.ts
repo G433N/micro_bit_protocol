@@ -230,7 +230,7 @@ Switch_State("INIT")
 character_list = [
 "A",
 "B",
-"B",
+"C",
 "D",
 "E",
 "F",
