@@ -12,84 +12,6 @@ function read_message (_message: string) {
     }
     return []
 }
-function dict_setup () {
-    character_list = [
-    "A",
-    "B",
-    "B",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "0"
-    ]
-    base_ten_list = [
-    5,
-    67,
-    70,
-    22,
-    1,
-    43,
-    25,
-    40,
-    4,
-    53,
-    23,
-    49,
-    8,
-    7,
-    26,
-    52,
-    77,
-    16,
-    13,
-    2,
-    14,
-    41,
-    17,
-    68,
-    71,
-    76,
-    161,
-    134,
-    125,
-    122,
-    121,
-    202,
-    229,
-    238,
-    241,
-    242
-    ]
-}
 // Array length = 3
 // "reciver_id",
 // "sender_id",
@@ -110,6 +32,7 @@ function send_message (message_data: number[]) {
     for (let value22 of message_str_string) {
         result_str = "" + result_str + value22
     }
+    basic.showString(result_str)
     radio.sendString(result_str)
 }
 input.onButtonPressed(Button.A, function () {
@@ -140,7 +63,7 @@ function Pair () {
 }
 function Switch_State (_state: string) {
     STATE = _state
-    basic.showString(_state)
+    basic.showString(_state.charAt(0))
 }
 function repeting_zeros (num: number) {
     zero_str = ""
@@ -152,6 +75,7 @@ function repeting_zeros (num: number) {
 function base_ten_to_character (base_ten: number) {
     index_of_base_ten = -1
     index_of_base_ten = base_ten_list.indexOf(base_ten)
+    basic.showNumber(index_of_base_ten)
     if (index_of_base_ten == -1) {
         return "-1"
     }
@@ -165,6 +89,12 @@ function add_input (input_value: string) {
 }
 input.onButtonPressed(Button.AB, function () {
     if (STATE == "ENDPOINT") {
+        if (id == 0) {
+            dir = 1
+        } else {
+            dir = -1
+        }
+        send_message([id + 1, id, base_three_to_base_ten(input_list)])
         reset_screen()
     }
 })
@@ -181,7 +111,10 @@ radio.onReceivedString(function (receivedString) {
         message_data[1] = message_data[1] + dir
         send_message(message_data)
     } else if (STATE == "ENDPOINT") {
+        let list: string[] = []
         basic.showString(receivedString)
+        message_data = read_message(receivedString)
+        basic.showString("" + (base_ten_to_character(parseFloat(list[2]))))
     }
 })
 input.onButtonPressed(Button.B, function () {
@@ -274,9 +207,9 @@ function plot_lights_array () {
 let list_index = 0
 let returned_character = ""
 let base_ten_number = 0
-let dir = 0
 let message_data: number[] = []
 let is_showing_binary_lights = false
+let dir = 0
 let input_list: string[] = []
 let index_of_base_ten = 0
 let zero_str = ""
@@ -284,11 +217,11 @@ let temp_id = 0
 let STATE = ""
 let result_str = ""
 let message_str_string: string[] = []
-let base_ten_list: number[] = []
-let character_list: string[] = []
 let message_int = 0
 let sender_id = 0
 let reciver_id = 0
+let base_ten_list: number[] = []
+let character_list: string[] = []
 let endpoint = false
 let id = 0
 radio.setGroup(169)
@@ -296,6 +229,82 @@ radio.setTransmitSerialNumber(true)
 id = -1
 endpoint = true
 Switch_State("INIT")
+character_list = [
+"A",
+"B",
+"B",
+"D",
+"E",
+"F",
+"G",
+"H",
+"I",
+"J",
+"K",
+"L",
+"M",
+"N",
+"O",
+"P",
+"Q",
+"R",
+"S",
+"T",
+"U",
+"V",
+"W",
+"X",
+"Y",
+"Z",
+"1",
+"2",
+"3",
+"4",
+"5",
+"6",
+"7",
+"8",
+"9",
+"0"
+]
+base_ten_list = [
+5,
+67,
+70,
+22,
+1,
+43,
+25,
+40,
+4,
+53,
+23,
+49,
+8,
+7,
+26,
+52,
+77,
+16,
+13,
+2,
+14,
+41,
+17,
+68,
+71,
+76,
+161,
+134,
+125,
+122,
+121,
+202,
+229,
+238,
+241,
+242
+]
 basic.forever(function () {
     if (STATE == "PAIR") {
         Pair()
