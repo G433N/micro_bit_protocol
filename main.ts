@@ -7,7 +7,7 @@ function read_message (_message: string) {
     reciver_id = parseFloat(_message.substr(0, 2))
     sender_id = parseFloat(_message.substr(2, 2))
     message_int = parseFloat(_message.substr(4, 3))
-    if (true) {
+    if (id == reciver_id) {
         return [reciver_id, sender_id, message_int]
     }
     return []
@@ -222,7 +222,7 @@ let base_ten_list: number[] = []
 let character_list: string[] = []
 let endpoint = false
 let id = 0
-radio.setGroup(169)
+radio.setGroup(69)
 radio.setTransmitSerialNumber(true)
 id = -1
 endpoint = false
